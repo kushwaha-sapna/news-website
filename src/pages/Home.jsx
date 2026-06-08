@@ -1,117 +1,163 @@
-// // // import React, { useEffect, useState } from "react";
+// // // // // // import { Link } from "react-router-dom";
+// // // // // // import { hindiNewsData } from "../data/hindiNewsData";
 
-// // // import HeroNews from "../components/HeroNews";
+// // // // // // const Home = () => {
+// // // // // //   return (
+// // // // // //     <div className="p-5">
+
+// // // // // //       <h2 className="text-2xl font-bold mb-4">🔥 Breaking News</h2>
+
+// // // // // //       <div className="grid grid-cols-3 gap-4">
+
+// // // // // //         {hindiNewsData.slice(0, 3).map((item) => (
+// // // // // //           <div key={item.id} className="border rounded p-3">
+
+// // // // // //             <img src={item.image} className="h-40 w-full object-cover" />
+
+// // // // // //             <h3 className="font-bold mt-2">{item.title}</h3>
+
+// // // // // //             <p className="text-sm text-gray-600">{item.description}</p>
+
+// // // // // //             <Link to={`/news/details/${item.id}`}>
+// // // // // //               <button className="text-blue-600 mt-2">
+// // // // // //                 Read More →
+// // // // // //               </button>
+// // // // // //             </Link>
+
+// // // // // //           </div>
+// // // // // //         ))}
+
+// // // // // //       </div>
+
+// // // // // //       <div className="mt-6 flex gap-4">
+
+// // // // // //         <Link to="/news/local">Local</Link>
+// // // // // //         <Link to="/news/sports">Sports</Link>
+// // // // // //         <Link to="/news/international">International</Link>
+// // // // // //         <Link to="/news/international">Politics</Link>
+
+// // // // // //       </div>
+
+// // // // // //     </div>
+// // // // // //   );
+// // // // // // };
+
+// // // // // // export default Home;
+
+
+
+
+// // // // // import React, { useState } from "react";
+
+// // // // // import { hindiNewsData } from "../data/hindiNewsData";
+
+// // // // // const Home = () => {
+// // // // //   const [searchTerm, setSearchTerm] = useState("");
+
+// // // // //   const filteredNews = hindiNewsData.filter((item) =>
+// // // // //     item.title.toLowerCase().includes(searchTerm.toLowerCase())
+// // // // //   );
+
+// // // // //   return (
+// // // // //     <div className="p-5">
+
+      
+
+// // // // //       {/* NEWS */}
+// // // // //       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-5">
+
+// // // // //         {filteredNews.map((item) => (
+// // // // //           <div key={item.id} className="border p-3 rounded">
+// // // // //             <img src={item.image} className="h-40 w-full object-cover" />
+// // // // //             <h3 className="font-bold mt-2">{item.title}</h3>
+// // // // //             <p className="text-sm text-gray-600">{item.description}</p>
+// // // // //           </div>
+// // // // //         ))}
+
+// // // // //       </div>
+
+// // // // //     </div>
+// // // // //   );
+// // // // // };
+
+// // // // // export default Home;
+
+
+
+
+
+
+// // // // import React, { useState } from "react";
+// // // // import { Link } from "react-router-dom";
+// // // // import { hindiNewsData } from "../data/hindiNewsData";
+
+// // // // const Home = () => {
+// // // //   const [searchTerm, setSearchTerm] = useState("");
+
+// // // //   const filteredNews = hindiNewsData.filter((item) =>
+// // // //     item.title.toLowerCase().includes(searchTerm.toLowerCase())
+// // // //   );
+
+// // // //   return (
+// // // //     <div className="p-5">
+
+// // // //       {/* NEWS GRID */}
+// // // //       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-5">
+
+// // // //         {filteredNews.map((item) => (
+// // // //           <div key={item.id} className="border p-3 rounded shadow">
+
+// // // //             <img
+// // // //               src={item.image}
+// // // //               className="h-40 w-full object-cover rounded"
+// // // //             />
+
+// // // //             <h3 className="font-bold mt-2">{item.title}</h3>
+
+// // // //             <p className="text-sm text-gray-600">
+// // // //               {item.description}
+// // // //             </p>
+
+// // // //             {/* READ MORE BUTTON */}
+// // // //             <Link to={`/news/${item.id}`}>
+// // // //               <button className="mt-3 bg-red-600 text-white px-4 py-1 rounded hover:bg-red-700">
+// // // //                 Read More
+// // // //               </button>
+// // // //             </Link>
+
+// // // //           </div>
+// // // //         ))}
+
+// // // //       </div>
+
+// // // //     </div>
+// // // //   );
+// // // // };
+
+// // // // export default Home;
+
+
+
+// // // import React, { useState } from "react";
+// // // import { hindiNewsData } from "../data/hindiNewsData";
 // // // import NewsCard from "../components/NewsCard";
-// // // import CategoryTabs from "../components/CategoryTabs";
-// // // import SearchBar from "../components/SearchBar";
-// // // import Loader from "../components/Loader";
-
-// // // import { getAllNews } from "../services/newsApi";
-// // // import { dummyNews } from "../data/dummyNews";
-// // // import BreakingNews from "../components/BreakingNews";
-
 
 // // // const Home = () => {
-// // //   const [news, setNews] = useState([]);
-// // //   const [loading, setLoading] = useState(true);
-// // //   const [apiStatus, setApiStatus] = useState(true);
+// // //   const [searchTerm, setSearchTerm] = useState("");
 
-// // //   // 🔴 BREAKING NEWS STATE
-// // //   const [breakingNews, setBreakingNews] = useState([]);
-
-// // //   useEffect(() => {
-// // //     const fetchNews = async () => {
-// // //       try {
-// // //         const res = await getAllNews();
-
-// // //         setNews(res.data);
-// // //         setApiStatus(true);
-
-// // //         // 🔴 FILTER BREAKING NEWS
-// // //         setBreakingNews(
-// // //           res.data.filter((item) => item.isBreaking === true)
-// // //         );
-
-// // //       } catch (error) {
-// // //         console.log("API not available, using dummy data");
-
-// // //         setApiStatus(false);
-
-// // //         // fallback dummy data
-// // //         setNews(dummyNews);
-
-// // //         // 🔴 BREAKING FROM DUMMY DATA
-// // //         setBreakingNews(
-// // //           dummyNews.filter((item) => item.isBreaking === true)
-// // //         );
-// // //       } finally {
-// // //         setLoading(false);
-// // //       }
-// // //     };
-
-// // //     fetchNews();
-// // //   }, []);
-
-// // //   if (loading) {
-// // //     return <Loader />;
-// // //   }
+// // //   const filteredNews = hindiNewsData.filter((item) =>
+// // //     item.title.toLowerCase().includes(searchTerm.toLowerCase())
+// // //   );
 
 // // //   return (
-// // //     <div className="max-w-7xl mx-auto px-4 py-6">
+// // //     <div className="p-5">
 
-// // //       {/* 🔴 BREAKING NEWS SECTION */}
-// // //       {breakingNews.length > 0 && (
-// // //         <div className="bg-red-600 text-white rounded mb-4 overflow-hidden">
+// // //       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-5">
 
-// // //           {/* LABEL */}
-// // //           <div className="bg-red-700 px-3 py-1 text-sm font-bold">
-// // //             🔴 BREAKING NEWS
-// // //           </div>
+// // //         {filteredNews.map((item) => (
+// // //           <NewsCard key={item.id} item={item} />
+// // //         ))}
 
-// // //           {/* SCROLL CONTENT */}
-// // //           <div className="flex gap-10 whitespace-nowrap py-2 px-3 animate-pulse">
-// // //             {breakingNews.map((item) => (
-// // //               <span key={item._id} className="font-medium">
-// // //                 🚨 {item.title}
-// // //               </span>
-// // //             ))}
-// // //           </div>
-
-// // //         </div>
-// // //       )}
-
-// // //       {/* SEARCH */}
-// // //       <SearchBar />
-
-// // //       {/* 🔥 HERO SECTION */}
-// // //       <HeroNews news={news?.[0]} />
-
-// // //       {/* CATEGORIES */}
-// // //       <CategoryTabs />
-// // //         <BreakingNews />
-
-
-// // //       {/* STATUS MESSAGE */}
-// // //       {!apiStatus && (
-// // //         <div className="bg-yellow-100 text-yellow-700 p-3 rounded mt-4 text-sm">
-// // //           ⚠ API not connected — showing demo news
-// // //         </div>
-// // //       )}
-
-// // //       {/* SECTION TITLE */}
-// // //       <h2 className="text-2xl font-bold mt-8 mb-4">
-// // //         Latest News
-// // //       </h2>
-
-// // //       {/* NEWS GRID */}
-// // //       <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
-// // //         {news.length > 0 ? (
-// // //           news.map((item) => (
-// // //             <NewsCard key={item._id} news={item} />
-// // //           ))
-// // //         ) : (
-// // //           <p>No news available</p>
-// // //         )}
 // // //       </div>
 
 // // //     </div>
@@ -123,97 +169,45 @@
 
 
 
-
-
-
-
-// // import React, { useEffect, useState } from "react";
-
-// // import HeroNews from "../components/HeroNews";
+// // import React, { useState } from "react";
+// // import { hindiNewsData } from "../data/hindiNewsData";
 // // import NewsCard from "../components/NewsCard";
-// // import CategoryTabs from "../components/CategoryTabs";
-// // import SearchBar from "../components/SearchBar";
-// // import Loader from "../components/Loader";
-// // import BreakingNews from "../pages/BreakingNews";
-
-
-// // import { getAllNews } from "../services/newsApi";
-// // import { dummyNews } from "../data/dummyNews";
-// // import LatestStories from "../pages/LatestStories";
+// // import AdBanner from "../components/AdBanner";
 
 // // const Home = () => {
-// //   const [news, setNews] = useState([]);
-// //   const [loading, setLoading] = useState(true);
-// //   const [apiStatus, setApiStatus] = useState(true);
+// //   const [searchTerm, setSearchTerm] = useState("");
 
-// //   useEffect(() => {
-// //     const fetchNews = async () => {
-// //       try {
-// //         const res = await getAllNews();
-
-// //         const data = res.data;
-
-// //         setNews(data);
-// //         setApiStatus(true);
-// //       } catch (error) {
-// //         console.log("API not available, using dummy data");
-
-// //         setNews(dummyNews);
-// //         setApiStatus(false);
-// //       } finally {
-// //         setLoading(false);
-// //       }
-// //     };
-
-// //     fetchNews();
-// //   }, []);
-
-// //   if (loading) {
-// //     return <Loader />;
-// //   }
+// //   const filteredNews = hindiNewsData.filter((item) =>
+// //     item.title.toLowerCase().includes(searchTerm.toLowerCase())
+// //   );
 
 // //   return (
-// //     <div className="max-w-7xl mx-auto px-4 py-6">
+// //     <div className="p-5">
 
-     
-      
-// //       {/* SEARCH */}
-// //       <SearchBar />
-
-// //       {/* 🔴 BREAKING NEWS COMPONENT (TOP) */}
-// //        <BreakingNews />
-
-
-// //       {/* HERO SECTION */}
-// //       <HeroNews news={news?.[0]} />
-
-// //       {/* CATEGORIES */}
-// //       <CategoryTabs />
-       
-// //       {/* STATUS MESSAGE */}
-// //       {!apiStatus && (
-// //         <div className="bg-yellow-100 text-yellow-700 p-3 rounded mt-4 text-sm">
-// //           ⚠ API not connected — showing demo news
-// //         </div>
-// //       )}
-
-// //       {/* LATEST NEWS */}
-// //       <h2 className="text-2xl font-bold mt-8 mb-4">
-// //         Latest News
-// //       </h2>
-
-// //       <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
-// //         {news.length > 0 ? (
-// //           news.map((item) => (
-// //             <NewsCard key={item._id || item.id} news={item} />
-// //           ))
-// //         ) : (
-// //           <p>No news available</p>
-// //         )}
+// //       {/* 🔍 SEARCH BAR */}
+// //       <div className="mb-5">
+// //         <input
+// //           type="text"
+// //           placeholder="Search news..."
+// //           value={searchTerm}
+// //           onChange={(e) => setSearchTerm(e.target.value)}
+// //           className="w-full p-2 border rounded"
+// //         />
 // //       </div>
 
-// //       <LatestStories/>
+// //       {/* 📰 NEWS GRID */}
+// //       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
 
+// //         {filteredNews.length > 0 ? (
+// //           filteredNews.map((item) => (
+// //             <NewsCard key={item.id} item={item} />
+// //           ))
+// //         ) : (
+// //           <p className="text-gray-500">No news found</p>
+// //         )}
+
+// //       </div>
+// //    <AdBanner />
 // //     </div>
 // //   );
 // // };
@@ -228,52 +222,58 @@
 
 
 
-// import React, { useState } from "react";
 
-// import HeroNews from "../components/HeroNews";
+
+
+
+
+// import React from "react";
+// import { hindiNewsData } from "../data/hindiNewsData";
 // import NewsCard from "../components/NewsCard";
-// import CategoryTabs from "../components/CategoryTabs";
-// import SearchBar from "../components/SearchBar";
-// import Loader from "../components/Loader";
-
-// import BreakingNews from "../pages/BreakingNews";
-// import LatestStories from "../pages/LatestStories";
-// import TrendingNow from "../pages/TrendingNow";
-
+// import AdBanner from "../components/AdBanner";
+// import Breaking from "../components/Breaking";
+// import NewsVideoSlider from "../components/NewsVideoSlider";
+// import Breaking from "../components/TrendingNow";
 // const Home = () => {
-//   // ✅ no API, no dummy → empty state only
-//   const [news] = useState([]);
-//   const [loading] = useState(false);
-//   const [apiStatus] = useState(false);
-
-//   if (loading) {
-//     return <Loader />;
-//   }
-
 //   return (
-//     <div className="max-w-7xl mx-auto px-4 py-6">
+//     <div className="p-5">
+// <Breaking/>
+//       {/* 🔥 Breaking Section */}
+//       {/* <h1 className="text-2xl font-bold mb-4">Latest Stories</h1> */}
+//      <h1 className="text-3xl md:text-4xl font-extrabold mt-6 mb-6 text-gray-800 relative inline-block">
+//   Latest Stories
+//   <span className="absolute left-0 -bottom-1 w-full h-1 bg-red-500 rounded-full"></span>
+// </h1>
+//       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
 
-//       {/* SEARCH */}
-//       <SearchBar />
-//      { /* BREAKING NEWS */}
-//       <BreakingNews />
+//         {hindiNewsData.slice(0, 6).map((item) => (
+//           <NewsCard key={item.id} item={item} />
+//         ))}
+
+//       </div>
+
+//       {/* 📢 AD BANNER (BEST PLACE: after first section) */}
+//       <div className="my-6">
+//         <AdBanner />
+//       </div>
 
       
+//       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
 
-//       {/* HERO SECTION */}
-//       <HeroNews news={news?.[0]} />
+//         {hindiNewsData.slice(6).map((item) => (
+//           <NewsCard key={item.id} item={item} />
+//         ))}
 
-//       {/* CATEGORIES */}
-//       <CategoryTabs />
-
-      
-     
-
+//       </div>
+// <div className="p-5">
+//       <NewsVideoSlider />
+//     </div>
     
+//       <TrendingNow />
+    
+   
 
-//       {/* EXTRA SECTION */}
-//       <LatestStories />
-//       <TrendingNow/>
+      
 
 //     </div>
 //   );
@@ -288,32 +288,46 @@
 
 
 import React from "react";
-
-import HeroNews from "../components/HeroNews";
-import CategoryTabs from "../components/CategoryTabs";
-import SearchBar from "../components/SearchBar";
-
-import BreakingNews from "../pages/BreakingNews";
-import LatestStories from "../pages/LatestStories";
-import TrendingNow from "../pages/TrendingNow";
+import { hindiNewsData } from "../data/hindiNewsData";
+import NewsCard from "../components/NewsCard";
+import AdBanner from "../components/AdBanner";
+import Breaking from "../components/Breaking";
+import NewsVideoSlider from "../components/NewsVideoSlider";
+import TrendingNow from "../components/TrendingNow"; // ✅ FIXED
 
 const Home = () => {
   return (
-    <div className="max-w-7xl mx-auto px-4 py-6">
-      {/* SEARCH */}
-      <SearchBar />
+    <div className="p-5">
+      <Breaking />
 
-      {/* BREAKING NEWS */}
-      <BreakingNews />
+      {/* 🔥 Breaking Section */}
+      {/* <h1 className="text-2xl font-bold mb-4">Latest Stories</h1> */}
+      <h1 className="text-3xl md:text-4xl font-extrabold mt-6 mb-6 text-gray-800 relative inline-block">
+        Latest Stories
+        <span className="absolute left-0 -bottom-1 w-full h-1 bg-red-500 rounded-full"></span>
+      </h1>
 
-      {/* HERO SECTION */}
-      <HeroNews />
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {hindiNewsData.slice(0, 6).map((item) => (
+          <NewsCard key={item.id} item={item} />
+        ))}
+      </div>
 
-      {/* CATEGORIES */}
-      <CategoryTabs />
+      {/* 📢 AD BANNER (BEST PLACE: after first section) */}
+      <div className="my-6">
+        <AdBanner />
+      </div>
 
-      {/* EXTRA SECTIONS */}
-      <LatestStories />
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {hindiNewsData.slice(6).map((item) => (
+          <NewsCard key={item.id} item={item} />
+        ))}
+      </div>
+
+      <div className="p-5">
+        <NewsVideoSlider />
+      </div>
+
       <TrendingNow />
     </div>
   );

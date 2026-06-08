@@ -3,159 +3,111 @@
 
 
 
-
-
-// import React, { useState } from "react";
-// import { Link } from "react-router-dom";
-// import MobileMenu from "./MobileMenu";
-
-// import logo from "../assets/gangatv-logo.png";
-
-// const Navbar = () => {
-//   const [isOpen, setIsOpen] = useState(false);
-
-//   return (
-//     <header className="bg-white shadow-md sticky top-0 z-50">
-//       <div className="max-w-7xl mx-auto px-4">
-//         <div className="flex items-center justify-between h-22">
-//           {/* Logo */}
-//           <Link to="/" className="flex items-center gap-2">
-//             <img
-//               src={logo}
-//               alt="GangaTV Logo"
-//               className="h-20 w-auto object-contain"
-//             />
-//           </Link>
-
-//           {/* Desktop Menu + Login Button */}
-//           <div className="hidden md:flex items-center gap-8">
-//             <nav className="flex gap-6 font-medium">
-//               <Link to="/" className="hover:text-red-600 transition">
-//                 Home
-//               </Link>
-
-//               <Link to="/sports" className="hover:text-red-600 transition">
-//                 Sports
-//               </Link>
-
-//               <Link to="/local-news" className="hover:text-red-600 transition">
-//                 Local News
-//               </Link>
-
-//               <Link to="/politics" className="hover:text-red-600 transition">
-//                 Politics
-//               </Link>
-
-//               <Link
-//                 to="/entertainment"
-//                 className="hover:text-red-600 transition"
-//               >
-//                 Entertainment
-//               </Link>
-
-//               <Link
-//                 to="/international"
-//                 className="hover:text-red-600 transition"
-//               >
-//                 International
-//               </Link>
-//             </nav>
-
-//             {/* Login Button */}
-//             <Link
-//               to="/login"
-//               className="bg-red-600 text-white px-5 py-2 rounded-lg font-medium hover:bg-red-700 transition duration-300"
-//             >
-//               Login
-//             </Link>
-//           </div>
-
-//           {/* Mobile Menu Button */}
-//           <button
-//             onClick={() => setIsOpen(!isOpen)}
-//             className="md:hidden text-2xl"
-//           >
-//             ☰
-//           </button>
-//         </div>
-
-//         {/* Mobile Menu */}
-//         {isOpen && <MobileMenu setIsOpen={setIsOpen} />}
-//       </div>
-//     </header>
-//   );
-// };
-
-// export default Navbar;
-
-
-
-
-
-
-
-
-
-
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import MobileMenu from "./MobileMenu";
-
-import logo from "../assets/gangatv-logo.png";
+import { Link, useNavigate } from "react-router-dom";
+import logo from "../assets/logo.png";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const navigate = useNavigate();
+
+  const handleSearch = () => {
+    if (!searchQuery.trim()) return;
+    navigate(`/search?q=${searchQuery}`);
+    setSearchQuery("");
+    setIsOpen(false);
+  };
 
   return (
-    <header className="bg-white shadow-md sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-4">
-        
-        {/* Navbar container */}
-        <div className="flex items-center justify-between h-20">
+    <nav className="bg-white shadow-md border-b border-red-600">
 
-          {/* Logo */}
-          <Link to="/" className="flex items-center gap-2">
-            <img
-              src={logo}
-              alt="GangaTV Logo"
-              className="h-16 md:h-20 w-auto object-contain"
-            />
-          </Link>
+      {/* TOP BAR */}
+      <div className="flex justify-between items-center px-6 md:px-12 py-3">
 
-          {/* Desktop Menu */}
-          <nav className="hidden md:flex items-center gap-6 font-medium">
-            <Link to="/news-website" className="hover:text-red-600 transition">Home</Link>
-            <Link to="/sports" className="hover:text-red-600 transition">Sports</Link>
-            <Link to="/local-news" className="hover:text-red-600 transition">Local News</Link>
-            <Link to="/politics" className="hover:text-red-600 transition">Politics</Link>
-            <Link to="/entertainment" className="hover:text-red-600 transition">Entertainment</Link>
-            <Link to="/international" className="hover:text-red-600 transition">International</Link>
-          </nav>
-
-          {/* Desktop Login */}
-          <div className="hidden md:block">
-            <Link
-              to="/login"
-              className="bg-red-600 text-white px-5 py-2 rounded-lg font-medium hover:bg-red-700 transition"
-            >
-              Login
-            </Link>
+        {/* LOGO */}
+        <div className="flex items-center gap-3">
+          <img src={logo} className="h-16 w-16 object-contain" />
+          <div className="leading-tight">
+            <h1 className="text-xl font-bold text-red-600">The Ganga TV</h1>
+            <p className="text-xs text-gray-500">अपना रंगमंच</p>
           </div>
-
-          {/* Mobile Button */}
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden text-3xl"
-          >
-            {isOpen ? "✕" : "☰"}
-          </button>
-
         </div>
 
-        {/* Mobile Menu */}
-        {isOpen && <MobileMenu setIsOpen={setIsOpen} />}
+        {/* SEARCH (DESKTOP) */}
+        <div className="hidden md:flex items-center border border-gray-300 rounded-full overflow-hidden w-[420px] shadow-sm">
+          <input
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && handleSearch()}
+            placeholder="Search latest news..."
+            className="w-full px-4 py-2 text-sm outline-none"
+          />
+          <button
+            onClick={handleSearch}
+            className="bg-red-600 text-white px-5 py-2 hover:bg-red-700"
+          >
+            Search
+          </button>
+        </div>
+
+        {/* LOGIN + MENU */}
+        <div className="hidden md:flex items-center gap-6">
+
+          <Link className="text-gray-700 hover:text-red-600" to="/">Home</Link>
+          <Link className="text-gray-700 hover:text-red-600" to="/news/local">Local</Link>
+          <Link className="text-gray-700 hover:text-red-600" to="/news/sports">Sports</Link>
+          <Link className="text-gray-700 hover:text-red-600" to="/news/international">International</Link>
+<Link className="text-gray-700 hover:text-red-600" to="/news/politics">Politics</Link>
+
+          <Link to="/login">
+            <button className="bg-red-600 text-white px-5 py-2 rounded-full hover:bg-red-700">
+              Login
+            </button>
+          </Link>
+
+          {/* MOBILE BTN */}
+          <button
+            className="md:hidden text-2xl text-red-600"
+            onClick={() => setIsOpen(!isOpen)}
+          >
+            ☰
+          </button>
+        </div>
       </div>
-    </header>
+
+      {/* MOBILE MENU */}
+      {isOpen && (
+        <div className="md:hidden px-6 pb-4 space-y-3 bg-white border-t">
+
+          <input
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="Search news..."
+            className="w-full border px-3 py-2 rounded"
+          />
+
+          <button
+            onClick={handleSearch}
+            className="w-full bg-red-600 text-white py-2 rounded"
+          >
+            Search
+          </button>
+
+          <Link onClick={() => setIsOpen(false)} to="/">Home</Link>
+          <Link onClick={() => setIsOpen(false)} to="/news/local">Local</Link>
+          <Link onClick={() => setIsOpen(false)} to="/news/sports">Sports</Link>
+          <Link onClick={() => setIsOpen(false)} to="/news/international">International</Link>
+          <Link onClick={() => setIsOpen(false)} to="/news/politics">Politics</Link>
+
+          <Link to="/login">
+            <button className="w-full bg-red-600 text-white py-2 rounded">
+              Login
+            </button>
+          </Link>
+        </div>
+      )}
+    </nav>
   );
 };
 

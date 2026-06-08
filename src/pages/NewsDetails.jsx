@@ -1,71 +1,37 @@
-import React from "react";
+
+
+
+
+
 import { useParams } from "react-router-dom";
-import { localNewsData } from "../data/localNewsData";
+import { hindiNewsData } from "../data/hindiNewsData";
 
 const NewsDetails = () => {
   const { id } = useParams();
 
-  const allNews = [
-    ...localNewsData.area,
-    ...localNewsData.crime,
-    ...localNewsData.traffic,
-    ...localNewsData.live,
-    ...localNewsData.reporters,
-  ];
-
-  const article = allNews.find(
-    (news) => news._id === Number(id)
+  const news = hindiNewsData.find(
+    (item) => String(item.id) === id
   );
 
-  if (!article) {
-    return (
-      <div className="text-center py-20 text-xl">
-        News Not Found
-      </div>
-    );
-  }
+  if (!news) return <h2 className="p-5">News not found</h2>;
 
   return (
-    <div className="max-w-5xl mx-auto px-4 py-10">
+    <div className="max-w-3xl mx-auto p-5">
 
       <img
-        src={article.image}
-        alt={article.title}
-        className="w-full h-[500px] object-cover rounded-xl"
+        src={news.image}
+        className="w-full h-80 object-cover"
+        alt={news.title}
       />
 
-      <div className="mt-8">
+      <h1 className="text-2xl font-bold mt-4">
+        {news.title}
+      </h1>
 
-        <span className="bg-red-600 text-white px-4 py-1 rounded">
-          {article.tag}
-        </span>
+      <p className="mt-3 text-gray-600">
+        {news.content}
+      </p>
 
-        <h1 className="text-4xl font-bold mt-4">
-          {article.title}
-        </h1>
-
-        <div className="flex gap-6 mt-4 text-gray-500">
-          <span>📍 {article.area}</span>
-          <span>🕒 {article.time}</span>
-          <span>✍️ {article.reporter}</span>
-        </div>
-
-        <div className="mt-8 text-lg leading-9 whitespace-pre-line text-gray-700">
-          {article.content}
-        </div>
-
-        {article.youtubeLink && (
-          <a
-            href={article.youtubeLink}
-            target="_blank"
-            rel="noreferrer"
-            className="inline-block mt-8 bg-red-600 text-white px-6 py-3 rounded-lg"
-          >
-            ▶ Watch Full Video Report
-          </a>
-        )}
-
-      </div>
     </div>
   );
 };
